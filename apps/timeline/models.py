@@ -17,14 +17,21 @@ class Post(models.Model):
         return reverse('upvote', args=[self.id])
 
     def get_downvote_url(self):
-        return reverse('downvote', args=[self.id])
+        return reverse('downvote', args=[self.id])    
+    
+    def get_vote_status(self):
+        vote = Vote.objects.get(user=self.user, post__id=self.id)
+        print(vote.upvoted, vote.downvoted)
+        return { 'upvoted': vote.upvoted, 'downvoted': vote.downvoted }
 
-class Votes(models.Model):
+class Vote(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    action = models.BooleanField(null=True)
+    upvoted = models.BooleanField(default=False)
+    downvoted = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, null=False,) 
     updated_at = models.DateTimeField(auto_now=True, null=False,) 
 
     def __str__(self):
         return self.user.username + ' ' + self.post.header + ' @ ' + str(self.created_at)
+
