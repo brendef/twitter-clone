@@ -2,5 +2,47 @@
 
 {% block title %} Home {% endblock title %}
 {% block content %}
-Home template
+<main>
+    <div class="container">
+  
+      <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">Welcome to <span class='text-primary'>"Not Twitter"</span></h1>
+            <p class="col-md-8 fs-4"> 
+                Not twitter, is an application built in Python using Django. <br> 
+                Check out the timeline, where you can see all posts made by our users. <br>
+                
+            </p>
+            <p class="col-md-8 fs-4"></p>
+            </p>
+            <a class="btn btn-primary btn-lg" href="{% url 'timeline' %}">Go to Timeline</a>
+        </div>
+      </div>
+  
+      <div class="row align-items-md-stretch">
+        <div class="col-md-6">
+          <div class="h-80 p-5 text-white bg-dark rounded-3">
+            <h2>Make a post</h2>
+            <p>
+                Everyone can make a post! </br>
+                Login or register an account to create a post. <br>
+                Posts, contain a header, body (message), username and timestamp. </br>
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="h-80 p-5 bg-light border rounded-3">
+            <h2>Upvote or Downvote</h2>
+            <p>
+                Don't like a post? Hit the downvote button to let the poster know.<br>
+                What if you like something, hit the upvote button. </br>
+                Upvotes and downvotes are counted. 
+            </p>
+          </div>
+        </div>
+      </div>
+  
+      <footer class="pt-3 mt-4 text-muted border-top"> Brendan de Faria m: 068 581 6811 e: brendan.defaria@gmail.com</footer>
+    </div>
+  </main>
 {% endblock content %}

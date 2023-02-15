@@ -11,6 +11,6 @@
       {% bootstrap_form login %}
       <button class="my-2 btn btn-dark btn-block" type="submit">Login</button>
     </form>
-    <p class="text-center">Don't have an account? <a href="/register">Create an account</a>.</p>
+    <p class="text-center">Don't have an account? <a href="{% url 'register' %}">Create an account</a>.</p>
 </div>
 {% endblock content %}

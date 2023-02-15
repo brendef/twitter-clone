@@ -9,8 +9,8 @@
 	<form class='d-flex flex-column' method="POST">
 		{% csrf_token %}
 		{% bootstrap_form register %}                    
-		<button class="btn btn-dark btn-block" type="submit">Register</button>
+		<button class="my-2 btn btn-dark btn-block" type="submit">Register</button>
 	</form>
-	<p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
+	<p class="text-center">If you already have an account, <a href="{% url 'login' %}">login</a> instead.</p>
 </div>
 {% endblock content %}
