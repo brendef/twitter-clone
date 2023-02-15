@@ -56,13 +56,22 @@ def downvote(request, post_id):
     return redirect('timeline')
     
 def timeline(request):
+    user_upvotes = []
+    user_downvotes = []
     posts = Post.objects.all()
     posts_count = posts.count()
-    
+    if request.user.id:
+        user_upvotes = Vote.objects.filter(user=request.user, upvoted=True).values('post')
+        user_downvotes = Vote.objects.filter(user=request.user, downvoted=True).values('post')
+
+    user_upvotes_ids = [ id['post'] for id in list(user_upvotes)]
+    user_downvotes_ids = [ id['post'] for id in list(user_downvotes)]
     
     context = {
         'posts': posts,
         'posts_count': posts_count,
+        'user_upvotes': user_upvotes_ids,
+        'user_downvotes': user_downvotes_ids,
     }
 
     return render(request, 'timeline/timeline.html', context)

@@ -18,11 +18,6 @@ class Post(models.Model):
 
     def get_downvote_url(self):
         return reverse('downvote', args=[self.id])    
-    
-    def get_vote_status(self):
-        vote = Vote.objects.get(user=self.user, post__id=self.id)
-        print(vote.upvoted, vote.downvoted)
-        return { 'upvoted': vote.upvoted, 'downvoted': vote.downvoted }
 
 class Vote(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
