@@ -9,6 +9,7 @@ class Post(models.Model):
     downvotes = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True, null=False,)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    hidden = models.BooleanField(default=False)
 
     def __str__(self):
         return self.header
@@ -19,6 +20,9 @@ class Post(models.Model):
     def get_downvote_url(self):
         return reverse('downvote', args=[self.id])    
 
+    def get_delete_url(self):
+        return reverse('delete_post', args=[self.id])    
+        
 class Vote(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

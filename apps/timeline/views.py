@@ -60,7 +60,7 @@ def new_post(request):
     form = NewPostForm()
 
     if request.method == 'POST':
-        post = Post.objects.create(
+        Post.objects.create(
             header = request.POST.get('header'),
             body = request.POST.get('body'),
             user = request.user,
@@ -71,10 +71,16 @@ def new_post(request):
     }
     return render(request, 'timeline/new_post.html', context)
     
+def delete_post(request, post_id):
+
+    post = Post.objects.filter(id=post_id).update(hidden=True)
+
+    return redirect('timeline')
+    
 def timeline(request):
     user_upvotes = []
     user_downvotes = []
-    posts = Post.objects.all()
+    posts = Post.objects.filter(hidden=False)
     posts_count = posts.count()
     if request.user.id:
         user_upvotes = Vote.objects.filter(user=request.user, upvoted=True).values('post')
