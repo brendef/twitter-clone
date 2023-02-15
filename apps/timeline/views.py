@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Post, Vote
 from django.contrib.auth.models import User
+from .forms import NewPostForm
 
 def upvote(request, post_id=None):
     user = User.objects.get(id=request.user.id)
@@ -54,6 +55,21 @@ def downvote(request, post_id):
      
     post.save()
     return redirect('timeline')
+
+def new_post(request):
+    form = NewPostForm()
+
+    if request.method == 'POST':
+        post = Post.objects.create(
+            header = request.POST.get('header'),
+            body = request.POST.get('body'),
+            user = request.user,
+        )
+        return redirect('timeline')
+    context = {
+        'new_post_form': form,
+    }
+    return render(request, 'timeline/new_post.html', context)
     
 def timeline(request):
     user_upvotes = []
